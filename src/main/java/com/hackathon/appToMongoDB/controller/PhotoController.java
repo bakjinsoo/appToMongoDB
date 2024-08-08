@@ -17,27 +17,26 @@ import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
-public class AudioController {
-    private final GridFsTemplate audioGridFsTemplate;
+public class PhotoController {
 
-    @PostMapping("/upload")
-    public ResponseEntity<String> uploadAudio(@RequestParam("audio") MultipartFile audio) {
+    private final GridFsTemplate photoGridFsTemplate;
+
+    @PostMapping("/upload/photo")
+    public ResponseEntity<String> uploadPhoto(@RequestParam("photo")MultipartFile photo) {
         try {
             DBObject metaData = new BasicDBObject();
-            metaData.put("type", "audio");
-            metaData.put("title", audio.getOriginalFilename());
-
-            audioGridFsTemplate.store(audio.getInputStream(), audio.getOriginalFilename(), "audio/3gp", metaData);
-
-            return ResponseEntity.ok("File uploaded successfully!");
+            metaData.put("type", "photo");
+            metaData.put("title", photo.getOriginalFilename());
+            photoGridFsTemplate.store(photo.getInputStream(), photo.getOriginalFilename(), "image/jpeg", metaData);
+            return ResponseEntity.ok("photo upload success");
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("File upload failed!");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("photo upload fail");
         }
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleException(Exception e) {
         e.printStackTrace();
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());
+        return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
     }
 }

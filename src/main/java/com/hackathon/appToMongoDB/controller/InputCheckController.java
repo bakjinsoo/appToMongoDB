@@ -32,5 +32,6 @@ public class InputCheckController {
         } else {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
+
     }
 }
