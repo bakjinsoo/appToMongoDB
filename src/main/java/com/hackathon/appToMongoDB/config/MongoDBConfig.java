@@ -35,4 +35,8 @@ public class MongoDBConfig extends AbstractMongoClientConfiguration {
     public GridFsTemplate audioGridFsTemplate(MongoDatabaseFactory dbFactory, MongoTemplate mongoTemplate) {
         return new GridFsTemplate(dbFactory, mongoTemplate.getConverter(), "audios");
     }
+    @Bean
+    public GridFsTemplate secondAudioGridFsTemplate(MongoDatabaseFactory dbFactory, MongoTemplate mongoTemplate) {
+        return new GridFsTemplate(dbFactory, mongoTemplate.getConverter(), "secondAudios");
+    }
 }
